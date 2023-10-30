@@ -21,6 +21,14 @@ func TestBitStringToByte(t *testing.T) {
 	}
 }
 
+func TestBitStringToByteError(t *testing.T) {
+	input := "0000001100000001000000" // incorret numver of bits should return error
+	_, err := bitStringToByteArray(input)
+	if err == nil {
+		t.Errorf("failed: expected: %s, got: %s", input, err)
+	}
+}
+
 func TestGetFrequenceTable(t *testing.T) {
 	got := getFreq([]string{"a", "b", "c", "a", "b", "a", " "})
 	want := FrequencyTable{
