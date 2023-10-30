@@ -206,6 +206,8 @@ func bitStringToByteArray(bitString string) ([]byte, error) {
 	return out, nil
 }
 
+// byteArrayToBitString takes a byte array and transforms it to a string of bits (0001010010)
+// This is used when decoding the file
 func byteArrayToBitString(b []byte) string {
 	var stringByte string
 	for _, char := range b {
@@ -213,6 +215,8 @@ func byteArrayToBitString(b []byte) string {
 	}
 	return stringByte
 }
+
+// getPrefixMap is a recursive function that walks down the tree and stores the prefix code for each character
 func getPrefixMap(i *Item, prefix *string, prexfixCodes map[string]string) {
 	if i == nil {
 		return
@@ -227,6 +231,8 @@ func getPrefixMap(i *Item, prefix *string, prexfixCodes map[string]string) {
 		}
 	}
 }
+
+// getFreq takes a string and returns a map with the frequency of each character
 func getFreq(s []string) FrequencyTable {
 	m := make(map[string]int, len(s))
 	// Iterate over all chars and add frequency for character to map

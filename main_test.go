@@ -92,3 +92,29 @@ func TestCompressionAndDecompression(t *testing.T) {
 	t.Logf("Input: %s \n", input)
 	t.Logf("Output: %s \n", decompressed)
 }
+
+func TestPrefixCodes(t *testing.T) {
+	testItem := Item{
+		LeftNode: &Item{
+			LeftNode: &Item{
+				Value: "B",
+			},
+			RightNode: &Item{
+				Value: "C",
+			},
+		},
+		RightNode: &Item{
+			Value: "A",
+		},
+	}
+
+	got := prefixCodes(&testItem)
+	want := map[string]string{
+		"A": "1",
+		"B": "00",
+		"C": "01",
+	}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("expected %v, got: %v", want, got)
+	}
+}

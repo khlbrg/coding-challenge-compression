@@ -15,7 +15,8 @@ func main() {
 
 func run() error {
 	filename := flag.String("f", "compressed.txt", "Path to the file that should be used")
-	decom := flag.Bool("d", true, "If decompress should be used")
+	out := flag.String("o", "compressed.txt", "Path to the output file")
+	decom := flag.Bool("d", false, "If decompress should be used")
 	verbose := flag.Bool("v", false, "Echo the result to the terminal")
 
 	flag.Parse()
@@ -26,20 +27,20 @@ func run() error {
 	}
 
 	if *decom {
-		decompress(fileContent)
+		decompress(fileContent, *out)
 	} else {
-		compress(string(fileContent), *verbose)
+		compress(string(fileContent), *verbose, *out)
 	}
 	return nil
 }
 
-func compress(content string, verbose bool) error {
+func compress(content string, verbose bool, out string) error {
 	compressedData, err := Compress(string(content))
 	if err != nil {
 		return fmt.Errorf("failed to compress: %w", err)
 	}
 
-	if err := writeFile("compressed.txt", compressedData); err != nil {
+	if err := writeFile(out, compressedData); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 
@@ -51,12 +52,12 @@ func compress(content string, verbose bool) error {
 	return nil
 }
 
-func decompress(content []byte) error {
+func decompress(content []byte, out string) error {
 	decompressedData, err := Decompress(content)
 	if err != nil {
 		return fmt.Errorf("failed to decompress: %w", err)
 	}
-	if err := writeFile("decompressed.txt", []byte(decompressedData)); err != nil {
+	if err := writeFile(out, []byte(decompressedData)); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 	return nil
