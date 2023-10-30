@@ -8,11 +8,11 @@ import (
 type FrequencyTable map[string]int
 
 type Item struct {
-	Value     string `json:"v,omitempty"`
-	Prio      int    `json:"-"`
-	Index     int    `json:"-"`
-	LeftNode  *Item  `json:"l,omitempty"`
-	RightNode *Item  `json:"r,omitempty"`
+	Value     string
+	Prio      int
+	Index     int
+	LeftNode  *Item
+	RightNode *Item
 }
 
 // Serialize is a depth first recursive function that creates a serialisation of a tree
