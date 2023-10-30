@@ -15,12 +15,13 @@ type Item struct {
 	RightNode *Item
 }
 
+var separator = string(byte(0x1F))
+
 // Serialize is a depth first recursive function that creates a serialisation of a tree
 // key is user as a null separator to know when a lead node is hit
 func Serialize(item *Item) string {
 	res := []string{}
 	nullKey := byte(0x1E)
-	separator := string(byte(0x1F))
 
 	var dfs func(i *Item)
 	dfs = func(i *Item) {
@@ -38,7 +39,6 @@ func Serialize(item *Item) string {
 }
 
 func Deserialize(data string) *Item {
-	separator := string(byte(0x1F))
 	nodes := strings.Split(data, separator)
 	i := 0
 
