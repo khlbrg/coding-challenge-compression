@@ -148,7 +148,7 @@ func decode(s string, node *Item, padding int) string {
 		if currentNode == nil {
 			continue
 		}
-		if currentNode.LeftNode == nil && currentNode.RightNode == nil {
+		if currentNode.isLeafNode() {
 			result += currentNode.Value
 			currentNode = node
 		}
@@ -226,7 +226,8 @@ func getPrefixMap(i *Item, prefix *string, prexfixCodes map[string]string) {
 		getPrefixMap(i.LeftNode, &zero, prexfixCodes)
 		getPrefixMap(i.RightNode, &one, prexfixCodes)
 
-		if len(i.Value) > 0 {
+		// When we reach a leaf node we store the prefix code for the character
+		if i.isLeafNode() {
 			prexfixCodes[i.Value] = *prefix
 		}
 	}

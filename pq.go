@@ -15,6 +15,10 @@ type Item struct {
 	RightNode *Item
 }
 
+func (i Item) isLeafNode() bool {
+	return i.LeftNode == nil && i.RightNode == nil
+}
+
 var separator = string(byte(0x1F))
 
 // Serialize is a depth first recursive function that creates a serialisation of a tree
